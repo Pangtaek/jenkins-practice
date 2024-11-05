@@ -1,7 +1,9 @@
-# Open JDK 17이 설치된 Apline Linux 이미지 기반으로 함(맥은 apline 오류로 slim으로 변경)
-FROM openjdk:17-jdk-slim
-# 빌드 된 jar 파일을 컨테이너의 루트 디렉토리에 app.jar로 복사함
+# OpenJDK 17 버전의 이미지를 가져와 JVM 환경을 구축한다.
+FROM openjdk:17-alpine
+
+# 현재 디렉토리 내의 모든 파일과 폴더를 컨테이너의 /app 디렉토리로 복사한다.
 WORKDIR /app
 COPY build/libs/*.jar app.jar
-# 컨테이너 시작 시 app.jar 파일을 실행하는 명령을 설정
+
+# app.jar를 리눅스 환경에서 실행하여 스프링 부트 서버를 시작한다.
 ENTRYPOINT ["java", "-jar", "app.jar"]
